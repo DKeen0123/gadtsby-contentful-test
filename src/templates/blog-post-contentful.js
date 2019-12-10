@@ -4,7 +4,8 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import { rhythm } from "../utils/typography"
+import Img from "gatsby-image"
 
 class BlogPostContentfulTemplate extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class BlogPostContentfulTemplate extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title={post.title} description={post.subtitle} />
+        <Img fluid={post.image.fluid} />
         <article>
           <header>
             <h1
@@ -86,6 +88,11 @@ export const pageQuery = graphql`
       title
       subtitle
       author
+      image {
+        fluid {
+          ...GatsbyContentfulFluid
+        }
+      }
       content {
         json
       }
